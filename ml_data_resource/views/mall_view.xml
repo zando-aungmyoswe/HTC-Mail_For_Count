@@ -1,0 +1,164 @@
+<odoo>
+  <data>
+    <menuitem id="mall_menu_root"
+            name="Property"
+            web_icon="ml_data_resource,static/description/icon.png"
+            sequence="200"/>
+    <record model="ir.ui.view" id="view_mall_form">
+      <field name="name">Mall Form</field>
+      <field name="model">ml.mall</field>
+      <field name="arch" type="xml">
+        <form>
+          <sheet>
+            <group>
+              <group>
+                <field name="name"/>
+                <field name="code"/>
+                <field name="gross_floor_area" placeholder="Gross Floor Area"/>
+                <!-- <field name="ext_code"/> -->
+              </group>
+              <group>
+                <field name="property_type"/>
+                <field name="uom"/>
+                <field name="net_lett_able_area" placeholder="Net-Lett-able Area"/>
+                <field name="web_site_url" widget="url" placeholder="http://www.google.com"/>
+              </group>
+              <group name="property" string="Property Address">
+                <group colspan="4">
+                  <field name="address_no"/>
+                  <field name="address_street"/>
+                </group>
+                <group colspan="2">
+                  <group>
+                    <field name="city"/>
+                    <field name="postal_code"/>
+                  </group>
+                  <group>
+                    <field name="state"/>
+                    <field name="country_id"/>
+                  </group>
+                </group>
+              </group>
+            </group>
+            <notebook>
+              <page name="Configurations" string="Configurations">
+                <group >
+                  <group>
+                    <field name="auto_generate_posid"/>
+                    <field name="next_pos_id"/>
+                  </group>
+                  <group>
+                      <field name="pos_id_format"/>
+                  </group>
+                </group>
+              </page>
+              <page name="Management"  string="Management Team">
+                <group >
+                  <group>
+                    <field name="management_team"/>
+                    <field name="phone"/>
+                  </group>
+                  <group>
+                      <field name="position"/>
+                  </group>
+                </group>
+              </page>
+              <page name="Bank Account Informations" string="Bank Account Informations"> 
+                <group >
+                  <group>
+                    <field name="bank_info"/>
+                  </group>
+                  <group>                     
+                  </group>
+                </group>
+              </page>
+              <page name="Management Company" string="Management Company">
+                <group>
+                  <group>
+                      <field name="management"/>
+                  </group>
+                </group>
+                <group>
+                  <group colspan="2">
+                      <group>
+                        <group colspan="2">
+                        <field name="mgt_address1"/>
+                        <field name="mgt_address2"/>
+                        </group>
+                        <group colspan="4">
+                          <group>
+                            <field name="mgt_city"/>
+                            <field name="mgt_state"/>
+                          </group>
+                          <group>
+                            <field name="mgt_postal_code"/>
+                            <field name="mgt_country"/>
+                          </group>
+                        </group>
+                      </group>
+                  </group>
+                  <group>
+                    <field name="office_phone"/>
+                    <field name="contact_person"/>
+                  </group>
+                </group>
+              </page>
+            </notebook>
+          </sheet>
+        </form>
+      </field>
+    </record>
+    <record model="ir.ui.view" id="view_mall_tree">
+      <field name="name">Mall list</field>
+      <field name="model">ml.mall</field>
+      <field name="arch" type="xml">
+        <tree>
+          <field name="name"/>
+          <field name="code"/>
+          <field name="property_type"/>
+          <field name="pos_id_format"/>
+        </tree>
+      </field>
+    </record>
+     <record model="ir.ui.view" id="view_mall_filter">
+      <field name="name">Mall list</field>
+      <field name="model">ml.mall</field>
+      <field name="arch" type="xml">
+        <search>
+          <field name="name"/>
+          <field name="code"/>
+        </search>
+      </field>
+    </record>
+     <record id="action_mall_all" model="ir.actions.act_window">
+       <field name="name">Mall</field>
+       <field name="res_model">ml.mall</field>
+       <field name="view_type">form</field>
+       <field name="view_mode">tree,form</field>
+       <field name="view_id" ref="view_mall_tree"/> 
+    </record>
+     <menuitem  id="mall_menu_sub" 
+      name="Mall" 
+      parent="mall_menu_root" 
+      sequence="1"/>
+    <menuitem  id="sub_mall_menu_root" 
+      name="Mall" 
+      parent="mall_menu_sub"
+      action="action_mall_all"
+      sequence="1"/>
+    <menuitem  id="mall_menu_config" 
+      name="Setting" 
+      parent="mall_menu_root" 
+      sequence="100"/>
+    <menuitem id="uom_menu" 
+      name="Units of Measure" 
+      parent="mall_menu_config"
+      action="uom.product_uom_form_action"
+      sequence="1"/>
+     <menuitem id="currency_menu" 
+      name="Currency" 
+      parent="mall_menu_config"
+      action="base.action_currency_all_form"
+      sequence="2"/>
+  </data>
+</odoo>
